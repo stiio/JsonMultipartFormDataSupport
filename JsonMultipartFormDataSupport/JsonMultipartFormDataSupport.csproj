@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Swashbuckle.AspNetCore.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <PackageId>Stio.$(AssemblyName)</PackageId>
+    <Title>Stio.$(AssemblyName)</Title>
+    <Version>1.0.0</Version>
+    <Authors>Stio</Authors>
+    <Description>Add support json fields in multipart-form requests.</Description>
+    <PackageProjectUrl>https://github.com/stiio/JsonMultipartFormDataSupport</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/stiio/JsonMultipartFormDataSupport</RepositoryUrl>
+    <PackageTags>JsonMultipartFormDataSupport</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.11" />
+	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+	  <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.6" />
+	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0" />
+  </ItemGroup>
+
+</Project>

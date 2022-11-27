@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonMultipartFormDataSupport", "JsonMultipartFormDataSupport\JsonMultipartFormDataSupport.csproj", "{C9A7BB26-A958-4723-A467-7EAAF88AB634}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{94F93F61-993A-4AF6-8391-8D0FEE03229E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2F19EB64-4503-421A-9A55-86F77A71BDE8}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9A7BB26-A958-4723-A467-7EAAF88AB634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9A7BB26-A958-4723-A467-7EAAF88AB634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9A7BB26-A958-4723-A467-7EAAF88AB634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9A7BB26-A958-4723-A467-7EAAF88AB634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94F93F61-993A-4AF6-8391-8D0FEE03229E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94F93F61-993A-4AF6-8391-8D0FEE03229E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94F93F61-993A-4AF6-8391-8D0FEE03229E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94F93F61-993A-4AF6-8391-8D0FEE03229E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D0AC1A6A-BD44-4E6C-B6AB-9D0B67F201AA}
+	EndGlobalSection
+EndGlobal
