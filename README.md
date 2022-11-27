@@ -1,3 +1,5 @@
+[![https://www.nuget.org/packages/Stio.JsonMultipartFormDataSupport](https://img.shields.io/nuget/v/Stio.JsonMultipartFormDataSupport)](https://www.nuget.org/packages/Stio.JsonMultipartFormDataSupport/)
+
 # JsonMultipartFormDataSupport
 [Morasiu's project](https://github.com/Morasiu/Swashbuckle.AspNetCore.JsonMultipartFormDataSupport) is taken as a basis.  
 The main difference from the original source is reading the json body from Request.Form.Files.
