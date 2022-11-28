@@ -36,18 +36,10 @@ public class JsonModelBinder : IModelBinder
         var modelBindingKey = bindingContext.IsTopLevelObject ? bindingContext.BinderModelName! : bindingContext.ModelName;
 
         // Check the value sent in
-        var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+        var valueProviderResult = await this.GetValueProvidedResult(bindingContext);
         if (valueProviderResult == ValueProviderResult.None)
         {
-            var file = bindingContext.HttpContext.Request.Form.Files.GetFile(bindingContext.ModelName);
-            if (file is null)
-            {
-                return;
-            }
-
-            using var reader = new StreamReader(file.OpenReadStream());
-            var text = await reader.ReadToEndAsync();
-            valueProviderResult = new ValueProviderResult(text);
+            return;
         }
 
         bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
@@ -91,5 +83,27 @@ public class JsonModelBinder : IModelBinder
     private object? DeserializeUsingJsonNet(ModelBindingContext bindingContext, string valueAsString)
     {
         return JsonConvert.DeserializeObject(valueAsString, bindingContext.ModelType, _newtonsoftJsonOptions?.Value?.SerializerSettings);
+    }
+
+    private async Task<ValueProviderResult> GetValueProvidedResult(ModelBindingContext bindingContext)
+    {
+        var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+        if (valueProviderResult != ValueProviderResult.None)
+        {
+            return valueProviderResult;
+        }
+
+        var file = bindingContext.HttpContext.Request.Form.Files.GetFile(bindingContext.ModelName);
+        if (file is null)
+        {
+            return valueProviderResult;
+        }
+
+        await using var stream = file.OpenReadStream();
+        using var reader = new StreamReader(stream);
+        var text = await reader.ReadToEndAsync();
+        valueProviderResult = new ValueProviderResult(text);
+
+        return valueProviderResult;
     }
 }
