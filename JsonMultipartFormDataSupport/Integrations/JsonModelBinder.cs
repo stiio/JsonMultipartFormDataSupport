@@ -36,7 +36,7 @@ public class JsonModelBinder : IModelBinder
         var modelBindingKey = bindingContext.IsTopLevelObject ? bindingContext.BinderModelName! : bindingContext.ModelName;
 
         // Check the value sent in
-        var valueProviderResult = await this.GetValueProvidedResult(bindingContext);
+        var valueProviderResult = await this.GetValueProvidedResult(bindingContext).ConfigureAwait(false);
         if (valueProviderResult == ValueProviderResult.None)
         {
             return;
@@ -101,7 +101,7 @@ public class JsonModelBinder : IModelBinder
 
         await using var stream = file.OpenReadStream();
         using var reader = new StreamReader(stream);
-        var text = await reader.ReadToEndAsync();
+        var text = await reader.ReadToEndAsync().ConfigureAwait(false);
         valueProviderResult = new ValueProviderResult(text);
 
         return valueProviderResult;

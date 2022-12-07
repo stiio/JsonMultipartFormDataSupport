@@ -6,11 +6,18 @@ namespace Demo.Models;
 public class SampleRequestWrapper
 {
     [Required]
-    public IFormFile File { get; set; } = null!;
+    public IFormFile FileRequired { get; set; } = null!;
+
+    public IFormFile? FileOptional { get; set; }
+
+    [Required]
+    public IFormFileCollection MultiplyFilesRequired { get; set; } = null!;
+
+    public IFormFileCollection? MultiplyFilesOptional { get; set; } = null!;
 
     [Required, FromJson]
-    public SampleModel JsonBody { get; set; } = null!;
+    public SampleModel JsonBodyRequired { get; set; } = null!;
 
-    [Required, FromJson]
-    public SampleModel JsonBody2 { get; set; } = null!;
+    [FromJson]
+    public SampleModel? JsonBodyOptional { get; set; }
 }

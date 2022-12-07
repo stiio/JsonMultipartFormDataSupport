@@ -6,7 +6,7 @@
     <RootNamespace>Swashbuckle.AspNetCore.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
     <PackageId>Stio.$(AssemblyName)</PackageId>
     <Title>Stio.$(AssemblyName)</Title>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Stio</Authors>
     <Description>Add support json fields in multipart-form requests.</Description>
     <PackageProjectUrl>https://github.com/stiio/JsonMultipartFormDataSupport</PackageProjectUrl>
