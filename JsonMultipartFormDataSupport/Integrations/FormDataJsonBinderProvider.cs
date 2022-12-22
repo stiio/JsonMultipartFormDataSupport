@@ -8,12 +8,13 @@ using Swashbuckle.AspNetCore.JsonMultipartFormDataSupport.Attributes;
 
 namespace Swashbuckle.AspNetCore.JsonMultipartFormDataSupport.Integrations;
 
-public class FormDataJsonBinderProvider : IModelBinderProvider
+internal class FormDataJsonBinderProvider : IModelBinderProvider
 {
     private readonly IOptions<JsonOptions>? _jsonOptions;
     private readonly IOptions<MvcNewtonsoftJsonOptions>? _newtonSoftJsonOptions;
 
-    public FormDataJsonBinderProvider(IOptions<JsonOptions> jsonOptions)
+    public FormDataJsonBinderProvider(
+        IOptions<JsonOptions> jsonOptions)
     {
         _jsonOptions = jsonOptions;
     }

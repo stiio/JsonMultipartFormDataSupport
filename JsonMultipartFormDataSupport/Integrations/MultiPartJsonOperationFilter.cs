@@ -17,23 +17,20 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Swashbuckle.AspNetCore.JsonMultipartFormDataSupport.Integrations;
 
-public class MultiPartJsonOperationFilter : IOperationFilter
+internal class MultiPartJsonOperationFilter : IOperationFilter
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly IOptions<JsonOptions> _jsonOptions;
     private readonly IOptions<MvcNewtonsoftJsonOptions> _newtonsoftJsonOption;
-    private readonly IOptions<SwaggerGeneratorOptions> _generatorOptions;
 
     public MultiPartJsonOperationFilter(
         IServiceProvider serviceProvider,
         IOptions<JsonOptions> jsonOptions,
-        IOptions<MvcNewtonsoftJsonOptions> newtonsoftJsonOption,
-        IOptions<SwaggerGeneratorOptions> generatorOptions)
+        IOptions<MvcNewtonsoftJsonOptions> newtonsoftJsonOption)
     {
         _serviceProvider = serviceProvider;
         _jsonOptions = jsonOptions;
         _newtonsoftJsonOption = newtonsoftJsonOption;
-        _generatorOptions = generatorOptions;
     }
 
     public void Apply(OpenApiOperation operation, OperationFilterContext context)

@@ -9,7 +9,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Swashbuckle.AspNetCore.JsonMultipartFormDataSupport.Integrations;
 
-public class JsonModelBinder : IModelBinder
+internal class JsonModelBinder : IModelBinder
 {
     private readonly IOptions<JsonOptions>? _jsonOptions;
     private readonly IOptions<MvcNewtonsoftJsonOptions>? _newtonsoftJsonOptions;
