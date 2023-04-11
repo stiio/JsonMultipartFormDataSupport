@@ -56,7 +56,7 @@ internal class MultiPartJsonOperationFilter : IOperationFilter
             foreach (var property in groupedProperties)
             {
                 var isRequired = descriptor.ParameterType.GetProperties().Any(propertyInfo =>
-                    propertyInfo.Name == property.Key
+                    propertyInfo.Name.Equals(property.Key, StringComparison.OrdinalIgnoreCase)
                     && propertyInfo.GetCustomAttribute<RequiredAttribute>() != null);
 
                 if (isRequired)
@@ -65,7 +65,7 @@ internal class MultiPartJsonOperationFilter : IOperationFilter
                 }
 
                 var jsonPropertyInfo = GetJsonPropertyInfo(descriptor, property.Key);
-                if (property.Key == jsonPropertyInfo?.Name)
+                if (property.Key.Equals(jsonPropertyInfo?.Name, StringComparison.OrdinalIgnoreCase))
                 {
                     AddEncoding(mediaType, jsonPropertyInfo);
 
@@ -166,6 +166,6 @@ internal class MultiPartJsonOperationFilter : IOperationFilter
         return descriptor.ParameterType.GetProperties()
             .SingleOrDefault(property =>
                 property.GetCustomAttribute<FromJsonAttribute>() != null
-                && property.Name == propertyName);
+                && property.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase));
     }
 }
