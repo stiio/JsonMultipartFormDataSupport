@@ -3,36 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
-using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.JsonMultipartFormDataSupport.Attributes;
 using Swashbuckle.AspNetCore.JsonMultipartFormDataSupport.Extensions;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Swashbuckle.AspNetCore.JsonMultipartFormDataSupport.Integrations;
 
 internal class MultiPartJsonOperationFilter : IOperationFilter
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly IOptions<JsonOptions> _jsonOptions;
-    private readonly IOptions<MvcNewtonsoftJsonOptions> _newtonsoftJsonOption;
-
-    public MultiPartJsonOperationFilter(
-        IServiceProvider serviceProvider,
-        IOptions<JsonOptions> jsonOptions,
-        IOptions<MvcNewtonsoftJsonOptions> newtonsoftJsonOption)
-    {
-        _serviceProvider = serviceProvider;
-        _jsonOptions = jsonOptions;
-        _newtonsoftJsonOption = newtonsoftJsonOption;
-    }
-
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
         var descriptors = context.ApiDescription.ActionDescriptor.Parameters.ToList();
@@ -97,7 +77,6 @@ internal class MultiPartJsonOperationFilter : IOperationFilter
 
         openApiSchema = context.SchemaGenerator.GenerateSchema(propertyInfo.PropertyType, context.SchemaRepository);
         AddDescription(openApiSchema, openApiSchema.Title);
-        this.AddExample(propertyInfo, openApiSchema);
 
         return openApiSchema;
     }
@@ -118,41 +97,6 @@ internal class MultiPartJsonOperationFilter : IOperationFilter
             Style = ParameterStyle.Form,
             ContentType = "application/json",
         });
-    }
-
-    private void AddExample(PropertyInfo propertyInfo, OpenApiSchema openApiSchema)
-    {
-        var example = GetExampleFor(propertyInfo.PropertyType);
-
-        // Example do not exist. Use default.
-        if (example == null) return;
-
-        var json = JsonMultipartFormDataOptions.JsonSerializerChoice switch
-        {
-            JsonSerializerChoice.SystemText => JsonSerializer.Serialize(example,
-                _jsonOptions.Value.JsonSerializerOptions),
-            JsonSerializerChoice.Newtonsoft => JsonConvert.SerializeObject(example,
-                _newtonsoftJsonOption.Value.SerializerSettings),
-            _ => JsonSerializer.Serialize(example)
-        };
-
-        openApiSchema.Example = new OpenApiString(json);
-    }
-
-    private object? GetExampleFor(Type parameterType)
-    {
-        var makeGenericType = typeof(IExamplesProvider<>).MakeGenericType(parameterType);
-        var method = makeGenericType.GetMethod("GetExamples");
-        var exampleProvider = _serviceProvider.GetService(makeGenericType);
-
-        // Example do not exist. Use default.
-        if (exampleProvider == null)
-        {
-            return null;
-        }
-        
-        var example = method?.Invoke(exampleProvider, null);
-        return example;
     }
 
     private static bool HasJsonProperties(ParameterDescriptor descriptor)
