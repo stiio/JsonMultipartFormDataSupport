@@ -13,7 +13,7 @@ public class SampleRequestWrapper
     [Required]
     public IFormFileCollection MultiplyFilesRequired { get; set; } = null!;
 
-    public IFormFileCollection? MultiplyFilesOptional { get; set; } = null!;
+    public IFormFileCollection? MultiplyFilesOptional { get; set; }
 
     [Required, FromJson]
     public SampleModel JsonBodyRequired { get; set; } = null!;
